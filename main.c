@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 typedef struct
-{    char data[100];
+{
+    char data[100];
     struct node* left;
     struct node* right;
 } node;
@@ -18,7 +19,7 @@ node* insert(node* root, char* key)
 {
     if (root == NULL)
         return newnode(key);
-    int cmp = strcmp(key, root->data);
+    int cmp = strcasecmp(key, root->data);
     if (cmp < 0)
         root->left = insert(root->left, key);
     else if (cmp > 0)
@@ -36,8 +37,19 @@ void inorder(node*root)
 }
 int main()
 {
-    node* n = newnode("c");
-    insert(n, "f");
-    inorder(n);
+    node*dict=newnode(NULL);
+    FILE *f=fopen("Dictionary.txt","r");
+    if (f==NULL)
+    {
+        printf("Error opening the file.\n");
+        return 1;
+    }
+    char x[100];
+    while (fscanf(f, "%s", x) == 1)
+    {
+        insert(dict, x);
+    }
+    inorder(dict);
+    fclose(f);
     return 0;
 }

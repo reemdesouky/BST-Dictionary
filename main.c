@@ -31,13 +31,13 @@ void inorder(node*root)
     if(root!=NULL)
     {
         inorder(root->left);
-        printf("%s",root->data);
+        printf("%s\n",root->data);
         inorder(root->right);
     }
 }
 int main()
 {
-    node*dict=newnode(NULL);
+    node*dict=newnode("start");
     FILE *f=fopen("Dictionary.txt","r");
     if (f==NULL)
     {
@@ -45,8 +45,9 @@ int main()
         return 1;
     }
     char x[100];
-    while (fscanf(f, "%s", x) == 1)
+    while(!feof(f))
     {
+        fscanf(f,"%s",&x);
         insert(dict, x);
     }
     inorder(dict);

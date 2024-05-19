@@ -35,9 +35,37 @@ void inorder(node*root)
         inorder(root->right);
     }
 }
+node* searchRecursive(node*root, char* value)
+{
+    if (root==NULL)
+    {
+        return NULL;
+    }
+    int cmp=strcasecmp(value,root->data);
+    if(cmp==0)
+        return root;
+    else if (cmp < 0)
+        return searchRecursive(root->left, value);
+    else
+        return searchRecursive(root->right, value);
+}
+void check (node*dict,char *sentence)
+{
+    char*tok=strtok(sentence," ");
+    while(tok)
+    {
+        if(searchRecursive(dict,tok)!=NULL)
+        {
+            printf("%s - Correct\n",tok);
+        }
+        else
+            printf("%s - Incorrect\n",tok);
+        tok=strtok(NULL," ");
+    }
+}
+
 int main()
 {
-    node*dict=newnode("start");
     FILE *f=fopen("Dictionary.txt","r");
     if (f==NULL)
     {
@@ -45,12 +73,21 @@ int main()
         return 1;
     }
     char x[100];
+    fscanf(f,"%s",&x);
+    node*dict=newnode(x);
     while(!feof(f))
     {
         fscanf(f,"%s",&x);
         insert(dict, x);
     }
-    inorder(dict);
+   /// inorder(dict);
+
+  printf("Enter a sentence:\n");
+   char sentence[100];
+   gets(sentence);
+
+   check(dict,sentence);
+
     fclose(f);
     return 0;
 }

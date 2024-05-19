@@ -42,6 +42,18 @@ int countSize(node*root)
     else
         return 1+countSize(root->left)+ countSize(root->right);
 }
+int max (int a,int b)
+{
+    return a>b?a:b;
+}
+int height(node*root)
+{
+    if(root==NULL)
+        return -1;
+    else
+
+        return 1+max(height(root->left), height(root->right));
+}
 node* searchRecursive(node*root, char* value)
 {
     if (root==NULL)
@@ -87,18 +99,20 @@ int main()
         fscanf(f,"%s",&x);
         insert(dict, x);
     }
-   /// inorder(dict);
-   printf("Dictionary Loaded Successfully...!\n");
-   printf("..................................\n");
-   printf("Size = %d\n",countSize(dict));
-   printf("..................................\n");
+    /// inorder(dict);
+    printf("Dictionary Loaded Successfully...!\n");
+    printf("..................................\n");
+    printf("Size = %d\n",countSize(dict));
+    printf("..................................\n");
+    printf("Height = %d\n",height(dict));
+    printf("..................................\n");
 
 
-  printf("Enter a sentence:\n");
-   char sentence[100];
-   gets(sentence);
+    printf("Enter a sentence:\n");
+    char sentence[100];
+    gets(sentence);
 
-   check(dict,sentence);
+    check(dict,sentence);
 
     fclose(f);
     return 0;

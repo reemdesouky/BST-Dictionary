@@ -35,6 +35,13 @@ void inorder(node*root)
         inorder(root->right);
     }
 }
+int countSize(node*root)
+{
+    if(!root)
+        return 0;
+    else
+        return 1+countSize(root->left)+ countSize(root->right);
+}
 node* searchRecursive(node*root, char* value)
 {
     if (root==NULL)
@@ -81,6 +88,11 @@ int main()
         insert(dict, x);
     }
    /// inorder(dict);
+   printf("Dictionary Loaded Successfully...!\n");
+   printf("..................................\n");
+   printf("Size = %d\n",countSize(dict));
+   printf("..................................\n");
+
 
   printf("Enter a sentence:\n");
    char sentence[100];
